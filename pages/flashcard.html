@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Flashcard - VocabApp</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/style.css">
+
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <h2>VocabApp</h2>
+        <div class="nav-links">
+            <a href="../index.html">Dashboard</a>
+            <a href="categories.html">Categories</a>
+            <a href="vocabulary.html">Vocabulary</a>
+            <a href="flashcard.html" class="active">Flashcard</a>
+            <a href="quiz.html">Quiz</a>
+            <button id="logoutBtn">Logout</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>Flashcard Learning</h1>
+            <div class="actions">
+                <select id="categoryFilter">
+                    <option value="">All Categories</option>
+                </select>
+                <input type="text" id="searchWord" placeholder="Search word...">
+                <select id="sortSelect">
+                    <option value="name">Sort by Name</option>
+                    <option value="time">Sort by Time</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="flashcard-wrapper">
+            <div class="flashcard" id="flashcard">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">
+
+                        <button id="voiceBtn" class="voice-btn">🔊</button>
+                        <span id="cardWord">No words available</span>
+                        <span id="cardMeaning">Meaning</span>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="flashcard-controls">
+                <button class="btn-primary" id="prevBtn">Previous</button>
+                <button class="btn-success" id="learnedBtn">
+                    Mark as Learned
+                </button>
+                <button class="btn-primary" id="nextBtn">Next</button>
+            </div>
+
+            <div class="progress-box">
+                <span>Progress</span>
+                <div class="progress-bar">
+                    <div id="progressFill"></div>
+                </div>
+
+                <span id="progressText">0/0</span>
+            </div>
+        </div>
+
+        <h2 class="section-title">Word List</h2>
+
+        <table class="table">
+
+            <thead>
+                <tr>
+                    <th>Word</th>
+                    <th>Meaning</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody id="wordList"></tbody>
+        </table>
+    </div>
+
+    <footer>
+        © 2024 VocabApp. All rights reserved.
+    </footer>
+
+    <script src="../js/app.js"></script>
+    <script src="../js/flashcard.js"></script>
+
+</body>
+
+</html>

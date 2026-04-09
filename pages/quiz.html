@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz - VocabApp</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=DM+Sans:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <h2>VocabApp</h2>
+        <div class="nav-links">
+            <a href="../index.html">Dashboard</a>
+            <a href="categories.html">Categories</a>
+            <a href="vocabulary.html">Vocabulary</a>
+            <a href="flashcard.html">Flashcard</a>
+            <a href="quiz.html" class="active">Quiz</a>
+            <button id="logoutBtn">Logout</button>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <div class="quiz-page-header">
+            <h1>Vocabulary Quiz</h1>
+            <button class="btn-success" id="startQuizBtn">Start Quiz</button>
+        </div>
+
+        <div class="quiz-config-card" id="configCard">
+            <div class="config-field">
+                <label>📂 Category</label>
+                <select id="categoryFilter">
+                    <option value="">All Categories</option>
+                </select>
+            </div>
+
+            <div class="config-field">
+                <label>🔢 Number of questions</label>
+                <div class="count-chips" id="countChips">
+                    <button class="count-chip" data-val="5" onclick="selectCount(this)">5</button>
+                    <button class="count-chip active" data-val="10" onclick="selectCount(this)">10</button>
+                    <button class="count-chip" data-val="15" onclick="selectCount(this)">15</button>
+                    <button class="count-chip" data-val="20" onclick="selectCount(this)">20</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="quiz-progress-wrap" id="progressWrap">
+            <div class="quiz-progress-row">
+                <span>Progress</span>
+                <span class="q-counter" id="progressLabel">0/0</span>
+            </div>
+            <div class="quiz-progress-bar">
+                <div class="quiz-progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+
+        <div class="score-box" id="scoreBox">
+            <span class="score-emoji" id="scoreEmoji">🏆</span>
+            <div class="score-pct" id="scorePct">0%</div>
+            <div class="score-msg" id="scoreMsg">You completed the quiz!</div>
+            <div class="score-meta">
+                <div class="score-meta-item t">
+                    <div class="score-meta-num" id="metaTotal">0</div>
+                    <div class="score-meta-lbl">Total</div>
+                </div>
+                <div class="score-meta-item c">
+                    <div class="score-meta-num" id="metaCorrect">0</div>
+                    <div class="score-meta-lbl">Correct</div>
+                </div>
+                <div class="score-meta-item w">
+                    <div class="score-meta-num" id="metaWrong">0</div>
+                    <div class="score-meta-lbl">Wrong</div>
+                </div>
+            </div>
+            <div class="score-actions">
+                <button class="btn-primary" id="retryBtn">🔄 Try Again</button>
+                <button class="btn-success" id="newQuizBtn">✨ New Quiz</button>
+            </div>
+        </div>
+
+        <div class="question-card" id="questionCard">
+            <div class="q-meta">
+                <span class="q-badge" id="qBadge">Question 1</span>
+            </div>
+            <div class="question-text" id="questionText"></div>
+            <div class="options-list" id="optionsList"></div>
+            <div class="feedback-row" id="feedbackRow">
+                <span id="fbIcon"></span>
+                <span id="fbText"></span>
+            </div>
+        </div>
+
+        <div class="quiz-nav" id="quizNav">
+            <button class="btn-primary" id="prevBtn">← Previous</button>
+            <button class="btn-primary" id="nextBtn">Next →</button>
+        </div>
+
+        <div class="history-section">
+            <div class="history-header">
+                <h2>Quiz History</h2>
+                <button class="btn-toggle-history" id="toggleHistoryBtn">
+                    <span id="toggleArrow">▼</span>
+                    <span id="toggleLabel">Show History</span>
+                </button>
+            </div>
+            <div class="history-collapse" id="historyCollapse">
+                <table class="table" id="historyTable" style="display:none">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Category</th>
+                            <th>Score</th>
+                            <th>Result</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historyRows"></tbody>
+                </table>
+                <div class="history-empty" id="historyEmpty">
+                    No quiz history yet. Complete a quiz to see your results here.
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>© 2024 VocabApp. All rights reserved.</footer>
+
+    <div id="toast"></div>
+
+    <script src="../js/app.js"></script>
+    <script src="../js/quiz.js"></script>
+</body>
+
+</html>

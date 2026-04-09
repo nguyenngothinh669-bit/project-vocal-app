@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VocabApp - Home</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=DM+Sans:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <h2>VocabApp</h2>
+
+        <div class="nav-links">
+            <a href="./index.html">Dashboard</a>
+            <a href="pages/categories.html">Categories</a>
+            <a href="pages/vocabulary.html">Vocabulary</a>
+            <a href="pages/flashcard.html">Flashcard</a>
+            <a href="pages/quiz.html">Quiz</a>
+            <button id="logoutBtn">Logout</button>
+        </div>
+    </nav>
+
+
+    <div class="container">
+
+        <div class="hero">
+            <div class="hero-badge">✨ Learn vocabulary intelligently</div>
+            <h1>Welcome to <span>VocabApp</span></h1>
+            <p>Learn and practice vocabulary with flashcards and quizzes</p>
+            <div class="hero-actions">
+                <a href="./pages/quiz.html" class="btn-primary">🚀 Get Started</a>
+                <a href="./pages/register.html" class="btn-outline">📖 Create Account</a>
+            </div>
+        </div>
+
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-number">1,200+</div>
+                <div class="stat-label">Vocabulary</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">48+</div>
+                <div class="stat-label">Categories</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">320+</div>
+                <div class="stat-label">Flashcard</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">96%</div>
+                <div class="stat-label">Memory rate</div>
+            </div>
+        </div>
+
+        <div class="dashboard">
+            <a href="pages/vocabulary.html" class="card">
+                <div class="card-icon">📚</div>
+                <h3>Vocabulary management</h3>
+                <p>Easily add, edit, and organize vocabulary by topic.</p>
+                <div class="card-arrow">See now →</div>
+            </a>
+            <a href="pages/flashcard.html" class="card">
+                <div class="card-icon">🧠</div>
+                <h3>Practice Flashcards</h3>
+                <p>Review vocabulary using the scientific flashcard method to increase memorization speed.</p>
+                <div class="card-arrow">Practice →</div>
+            </a>
+            <a href="pages/quiz.html" class="card">
+                <div class="card-icon">📝</div>
+                <h3>Take Quiz</h3>
+                <p>Test your knowledge with diverse, fun, and score-based quizzes.</p>
+                <div class="card-arrow">Do homework →</div>
+            </a>
+                
+        </div>
+
+    </div>
+
+    <footer>
+        © 2024 VocabApp. All rights reserved.
+    </footer>
+    <script src="./js/app.js"></script>
+</body>
+
+</html>
