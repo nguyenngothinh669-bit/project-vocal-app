@@ -9,6 +9,7 @@ if (!categories || categories.length === 0) {
     ];
     localStorage.setItem("categories", JSON.stringify(categories));
 }
+
 let currentPage = 1;
 const itemsPerPage = 5;
 
@@ -40,13 +41,8 @@ function renderCategories() {
             <td>${cat.name}</td>
             <td>${cat.description}</td>
             <td class="action-buttons">
-                <button class="btn-primary btn-action" onclick="editCategory('${cat.id}')">
-                    Edit
-                </button>
-
-                <button class="btn-danger btn-action" onclick="showDelete('${cat.id}')">
-                    Delete
-                </button>
+                <button class="btn-primary btn-action" onclick="editCategory('${cat.id}')">Edit</button>
+                <button class="btn-danger btn-action" onclick="showDelete('${cat.id}')">Delete</button>
             </td>
         </tr>
     `).join("");
@@ -54,9 +50,7 @@ function renderCategories() {
     renderPagination(filtered.length);
 }
 
-
 function renderPagination(totalItems) {
-
     const totalPages = Math.ceil(totalItems / itemsPerPage);
     let html = "";
     for (let i = 1; i <= totalPages; i++) {
@@ -84,23 +78,12 @@ document.getElementById("closeModal").onclick = () => {
     modal.style.display = "none";
 };
 
-function showToast(message,type="success"){
-    const toastContainer = document.getElementById("toast");
-    const toast = document.createElement("div");
-    toast.className = `toast toast-${type}`;
-    toast.textContent = message;
-    toastContainer.appendChild(toast);
-    setTimeout(()=>{
-        toast.remove();
-    },3000);
-
-}
-
 document.getElementById("saveCategory").onclick = () => {
     const name = nameInput.value.trim();
     const description = descInput.value.trim();
+    
     if (!name) {
-        showToast("Category name is required","error");
+        showToast({ type: 'error', title: 'Invalid Input', desc: 'Category name is required' });
         return;
     }
 
@@ -109,15 +92,15 @@ document.getElementById("saveCategory").onclick = () => {
     );
 
     if (isDuplicate) {
-        showToast("Category name already exists","error");
+        showToast({ type: 'warning', title: 'Duplicate', desc: 'Category name already exists' });
         return;
     }
+    
     if (editId) {
         const index = categories.findIndex(c => c.id === editId);
         categories[index].name = name;
         categories[index].description = description;
-    }
-    else {
+    } else {
         const newCategory = {
             id: Date.now().toString(),
             name,
@@ -125,10 +108,11 @@ document.getElementById("saveCategory").onclick = () => {
         };
         categories.push(newCategory);
     }
+    
     localStorage.setItem("categories", JSON.stringify(categories));
     modal.style.display = "none";
     renderCategories();
-    showToast("Category saved successfully", "success");
+    showToast({ type: 'success', title: 'Success', desc: 'Category saved successfully' });
 };
 
 function editCategory(id) {
@@ -149,7 +133,7 @@ document.getElementById("confirmDelete").onclick = () => {
     localStorage.setItem("categories", JSON.stringify(categories));
     deleteModal.style.display = "none";
     renderCategories();
-    showToast("Category deleted successfully", "success");
+    showToast({ type: 'success', title: 'Deleted', desc: 'Category deleted successfully' });
 };
 
 document.getElementById("cancelDelete").onclick = () => {
@@ -160,4 +144,5 @@ searchInput.addEventListener("input", () => {
     currentPage = 1;
     renderCategories();
 });
+
 renderCategories();

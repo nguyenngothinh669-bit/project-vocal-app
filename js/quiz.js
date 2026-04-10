@@ -1,4 +1,3 @@
-
 let vocabularies = JSON.parse(localStorage.getItem("vocabularies")) || [];
 let categories = JSON.parse(localStorage.getItem("categories")) || [];
 let quizHistory = JSON.parse(localStorage.getItem("quizHistory")) || [];
@@ -58,7 +57,6 @@ function loadCategories() {
     categoryFilter.addEventListener("change", updateCountChips);
 }
 
-
 window.selectCount = function (el) {
     if (el.disabled) return;
     document.querySelectorAll(".count-chip").forEach(c => c.classList.remove("active"));
@@ -106,7 +104,7 @@ function buildQuiz() {
     if (catId) pool = pool.filter(v => v.categoryId === catId);
 
     if (pool.length < 2) {
-        showToast("Not enough vocabulary! Please add at least 2 words.", "error");
+        showToast({ type: 'warning', title: 'Not enough words', desc: 'Please add at least 2 words to start.' });
         return false;
     }
 
@@ -138,6 +136,7 @@ function buildQuiz() {
     currentIdx = 0;
     return true;
 }
+
 startQuizBtn.addEventListener("click", () => {
     if (!buildQuiz()) return;
 
@@ -271,7 +270,12 @@ function finishQuiz() {
     localStorage.setItem("quizHistory", JSON.stringify(quizHistory));
     renderHistory();
 
-    showToast(`Quiz complete! Score: ${pct}%`, pct >= 60 ? "success" : "error");
+    // CẬP NHẬT: Gọi hàm showToast theo chuẩn UI mới
+    showToast({ 
+        type: pct >= 60 ? "success" : "info", 
+        title: "Quiz Complete!", 
+        desc: `Your score is ${pct}%` 
+    });
 }
 
 retryBtn.addEventListener("click", () => {
@@ -345,14 +349,6 @@ function triggerConfetti() {
         document.body.appendChild(dot);
         setTimeout(() => dot.remove(), 1000);
     }
-}
-
-function showToast(msg, type = "success") {
-    const el = document.createElement("div");
-    el.className = `toast toast-${type}`;
-    el.textContent = msg;
-    document.getElementById("toast").appendChild(el);
-    setTimeout(() => el.remove(), 3000);
 }
 
 const style = document.createElement("style");

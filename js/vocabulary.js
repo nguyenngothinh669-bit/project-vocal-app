@@ -7,11 +7,9 @@ if (!localStorage.getItem("categories")) {
         { id: "c5", name: "Technology" }
     ];
     localStorage.setItem("categories", JSON.stringify(categoriesSeed));
-
 }
 
 if (!localStorage.getItem("vocabularies")) {
-
     const vocabSeed = [
         { id: "v1", word: "dog", meaning: "chó", categoryId: "c1" },
         { id: "v2", word: "cat", meaning: "mèo", categoryId: "c1" },
@@ -22,9 +20,7 @@ if (!localStorage.getItem("vocabularies")) {
         { id: "v7", word: "teacher", meaning: "giáo viên", categoryId: "c4" },
         { id: "v8", word: "computer", meaning: "máy tính", categoryId: "c5" }
     ];
-
     localStorage.setItem("vocabularies", JSON.stringify(vocabSeed));
-
 }
 
 let vocabularies = JSON.parse(localStorage.getItem("vocabularies")) || [];
@@ -46,7 +42,6 @@ let editId = null;
 let deleteId = null;
 
 function loadCategories() {
-
     categorySelect.innerHTML = categories.map(c =>
         `<option value="${c.id}">${c.name}</option>`
     ).join("");
@@ -61,7 +56,6 @@ function loadCategories() {
 loadCategories();
 
 function renderVocabulary() {
-
     const keyword = searchInput.value.toLowerCase();
     const category = categoryFilter.value;
 
@@ -74,46 +68,27 @@ function renderVocabulary() {
     }
 
     table.innerHTML = filtered.map(v => {
-
         const cat = categories.find(c => c.id === v.categoryId);
-
         return `
-<tr>
-
-<td>${v.word}</td>
-
-<td>${v.meaning}</td>
-
-<td>${cat ? cat.name : ""}</td>
-
-<td class="action-buttons">
-
-<button
-class="btn-primary btn-action"
-onclick="editVocabulary('${v.id}')">
-Edit
-</button>
-
-<button
-class="btn-danger btn-action"
-onclick="showDelete('${v.id}')">
-Delete
-</button>
-
-</td>
-
-</tr>
+        <tr>
+            <td>${v.word}</td>
+            <td>${v.meaning}</td>
+            <td>${cat ? cat.name : ""}</td>
+            <td class="action-buttons">
+                <button class="btn-primary btn-action" onclick="editVocabulary('${v.id}')">Edit</button>
+                <button class="btn-danger btn-action" onclick="showDelete('${v.id}')">Delete</button>
+            </td>
+        </tr>
 ` }).join("");
 }
 
 renderVocabulary();
-document.getElementById("addVocabularyBtn").onclick = () => {
 
+document.getElementById("addVocabularyBtn").onclick = () => {
     editId = null;
     wordInput.value = "";
     meaningInput.value = "";
     modal.style.display = "flex";
-
 };
 
 document.getElementById("closeModal").onclick = () => {
@@ -121,13 +96,12 @@ document.getElementById("closeModal").onclick = () => {
 };
 
 document.getElementById("saveVocabulary").onclick = () => {
-
     const word = wordInput.value.trim();
     const meaning = meaningInput.value.trim();
     const categoryId = categorySelect.value;
 
     if (!word || !meaning) {
-        showToast("Please fill all fields", "error");
+        showToast({ type: 'error', title: 'Invalid Input', desc: 'Please fill all fields' });
         return;
     }
 
@@ -149,19 +123,16 @@ document.getElementById("saveVocabulary").onclick = () => {
     localStorage.setItem("vocabularies", JSON.stringify(vocabularies));
     modal.style.display = "none";
     renderVocabulary();
-    showToast("Vocabulary saved", "success");
-
+    showToast({ type: 'success', title: 'Success', desc: 'Vocabulary saved successfully' });
 };
 
 function editVocabulary(id) {
-
     const vocab = vocabularies.find(v => v.id === id);
     editId = id;
     wordInput.value = vocab.word;
     meaningInput.value = vocab.meaning;
     categorySelect.value = vocab.categoryId;
     modal.style.display = "flex";
-
 }
 
 function showDelete(id) {
@@ -170,12 +141,11 @@ function showDelete(id) {
 }
 
 document.getElementById("confirmDelete").onclick = () => {
-
     vocabularies = vocabularies.filter(v => v.id !== deleteId);
     localStorage.setItem("vocabularies", JSON.stringify(vocabularies));
     deleteModal.style.display = "none";
     renderVocabulary();
-    showToast("Vocabulary deleted", "success");
+    showToast({ type: 'success', title: 'Deleted', desc: 'Vocabulary removed successfully' });
 };
 
 document.getElementById("cancelDelete").onclick = () => {
@@ -184,14 +154,3 @@ document.getElementById("cancelDelete").onclick = () => {
 
 searchInput.addEventListener("input", renderVocabulary);
 categoryFilter.addEventListener("change", renderVocabulary);
-
-function showToast(message, type = "success") {
-    const toastContainer = document.getElementById("toast");
-    const toast = document.createElement("div");
-    toast.className = `toast toast-${type}`;
-    toast.textContent = message;
-    toastContainer.appendChild(toast);
-    setTimeout(() => {
-        toast.remove();
-    }, 3000);
-}
