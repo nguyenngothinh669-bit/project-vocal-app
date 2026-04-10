@@ -1702,7 +1702,6 @@ select:focus {
     }
 }
 
-/* ===== TOAST NOTIFICATION ===== */
 #toast-container {
     position: fixed;
     top: 24px;
@@ -1857,7 +1856,6 @@ select:focus {
     }
 }
 
-/* ===== REGISTER SUCCESS SCREEN ===== */
 .register-success {
     display: none;
     flex-direction: column;
@@ -1993,7 +1991,6 @@ select:focus {
     font-weight: 700;
 }
 
-/* ===== LOGOUT MODAL ===== */
 .modal-overlay {
     position: fixed;
     inset: 0;

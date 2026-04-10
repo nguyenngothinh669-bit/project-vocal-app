@@ -270,7 +270,6 @@ function finishQuiz() {
     localStorage.setItem("quizHistory", JSON.stringify(quizHistory));
     renderHistory();
 
-    // CẬP NHẬT: Gọi hàm showToast theo chuẩn UI mới
     showToast({ 
         type: pct >= 60 ? "success" : "info", 
         title: "Quiz Complete!", 
