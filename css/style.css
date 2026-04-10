@@ -658,31 +658,6 @@ footer {
     color: white;
 }
 
-#toast {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 9999;
-}
-
-.toast {
-    min-width: 250px;
-    padding: 14px 18px;
-    margin-bottom: 10px;
-    border-radius: 8px;
-    color: white;
-    font-size: 14px;
-    animation: slideIn .3s ease;
-}
-
-.toast-success {
-    background: #16a34a;
-}
-
-.toast-error {
-    background: #ef4444;
-}
-
 select {
     appearance: none;
     -webkit-appearance: none;
