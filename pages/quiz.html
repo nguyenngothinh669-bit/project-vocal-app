@@ -14,13 +14,21 @@
 <body>
 
     <nav class="navbar">
-        <h2>VocabApp</h2>
+        <div class="brand">
+            <svg class="brand-logo" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 21L4 12V4C4 4 8 4 12 8C16 4 20 4 20 4V12L12 21Z" fill="var(--primary)" fill-opacity="0.1"
+                    stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M12 21V8" stroke="var(--primary)" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+            </svg>
+            <h2>VocabApp</h2>
+        </div>
+
         <div class="nav-links">
             <a href="../index.html">Dashboard</a>
             <a href="categories.html">Categories</a>
             <a href="vocabulary.html">Vocabulary</a>
             <a href="flashcard.html">Flashcard</a>
-            <a href="quiz.html" class="active">Quiz</a>
             <button id="logoutBtn">Logout</button>
         </div>
     </nav>
@@ -34,14 +42,14 @@
 
         <div class="quiz-config-card" id="configCard">
             <div class="config-field">
-                <label>📂 Category</label>
+                <label> Category</label>
                 <select id="categoryFilter">
                     <option value="">All Categories</option>
                 </select>
             </div>
 
             <div class="config-field">
-                <label>🔢 Number of questions</label>
+                <label>Number of questions</label>
                 <div class="count-chips" id="countChips">
                     <button class="count-chip" data-val="5" onclick="selectCount(this)">5</button>
                     <button class="count-chip active" data-val="10" onclick="selectCount(this)">10</button>
@@ -62,9 +70,9 @@
         </div>
 
         <div class="score-box" id="scoreBox">
-            <span class="score-emoji" id="scoreEmoji">🏆</span>
             <div class="score-pct" id="scorePct">0%</div>
             <div class="score-msg" id="scoreMsg">You completed the quiz!</div>
+            
             <div class="score-meta">
                 <div class="score-meta-item t">
                     <div class="score-meta-num" id="metaTotal">0</div>
@@ -80,8 +88,8 @@
                 </div>
             </div>
             <div class="score-actions">
-                <button class="btn-primary" id="retryBtn">🔄 Try Again</button>
-                <button class="btn-success" id="newQuizBtn">✨ New Quiz</button>
+                <button class="btn-primary" id="retryBtn">Try Again</button>
+                <button class="btn-success" id="newQuizBtn"> New Quiz</button>
             </div>
         </div>
 

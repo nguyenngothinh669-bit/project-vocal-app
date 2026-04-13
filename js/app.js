@@ -1,7 +1,4 @@
-/* ============================================================
-   TOAST SYSTEM (shared — injected here for pages that only load app.js)
-   ============================================================ */
-function createToastContainer() {
+   function createToastContainer() {
     let c = document.getElementById('toast-container');
     if (!c) { c = document.createElement('div'); c.id = 'toast-container'; document.body.appendChild(c); }
     return c;
@@ -28,12 +25,12 @@ function showToast({ type = 'info', title, desc, duration = 4000 }) {
     }
     const closeBtn = toast.querySelector('.toast-close');
     const timer = setTimeout(dismiss, duration);
-    closeBtn.addEventListener('click', () => { clearTimeout(timer); dismiss(); });
+    closeBtn.addEventListener('click', () => {
+        clearTimeout(timer); 
+        dismiss(); 
+    });
 }
 
-/* ============================================================
-   AUTH GUARD
-   ============================================================ */
 const currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
 if (!currentUser) {
@@ -41,9 +38,6 @@ if (!currentUser) {
     window.location.href = isInPages ? 'login.html' : 'pages/login.html';
 }
 
-/* ============================================================
-   SHOW PENDING TOAST (after login redirect lands on index.html)
-   ============================================================ */
 window.addEventListener('DOMContentLoaded', () => {
     const pending = localStorage.getItem('pendingToast');
     if (pending) {
@@ -55,14 +49,11 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-/* ============================================================
-   LOGOUT — custom modal instead of native confirm()
-   ============================================================ */
+
 document.addEventListener('DOMContentLoaded', () => {
     const logoutBtn = document.getElementById('logoutBtn');
     if (!logoutBtn) return;
 
-    // Build modal once
     const overlay = document.createElement('div');
     overlay.className = 'modal-overlay';
     overlay.innerHTML = `
@@ -78,32 +69,28 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
     document.body.appendChild(overlay);
 
-    // Open modal
     logoutBtn.addEventListener('click', () => {
         overlay.classList.add('show');
     });
 
-    // Cancel
     document.getElementById('cancelLogout').addEventListener('click', () => {
         overlay.classList.remove('show');
     });
 
-    // Close on backdrop click
+    
     overlay.addEventListener('click', (e) => {
         if (e.target === overlay) overlay.classList.remove('show');
     });
 
-    // Confirm logout
     document.getElementById('confirmLogout').addEventListener('click', () => {
         const user = JSON.parse(localStorage.getItem('currentUser'));
         const name = user ? user.firstName : 'User';
 
         localStorage.removeItem('currentUser');
 
-        // Queue toast for login page
         localStorage.setItem('pendingToast', JSON.stringify({
             type:  'info',
-            title: `See you soon, ${name}! 👋`,
+            title: `See you soon, ${name}! `,
             desc:  'You have been logged out successfully.',
         }));
 

@@ -16,12 +16,12 @@
             <a href="login.html" class="btn-primary small">Login</a>
             <a href="register.html" class="btn-success small">Register</a>
         </div>
-    </nav> 
+    </nav>
 
     <div class="auth-container">
 
         <div class="auth-box">
-            <h2>Welcome Back 👋</h2>
+            <h2>Welcome Back </h2>
             <p>Login to continue learning</p>
 
             <form id="loginForm">
@@ -52,13 +52,18 @@
     </div>
 
     <script>
-    (function(){
-        window.addEventListener("DOMContentLoaded",function(){
-            var p=localStorage.getItem("pendingToast");
-            if(p){try{var d=JSON.parse(p);localStorage.removeItem("pendingToast");setTimeout(function(){showToast(d);},400);}catch(e){localStorage.removeItem("pendingToast");}}
-        });
-    })();
-</script>
+        (function () {
+            window.addEventListener("DOMContentLoaded", function () {
+                var p = localStorage.getItem("pendingToast");
+                if (p) { 
+                    try { var d = JSON.parse(p);
+                    localStorage.removeItem("pendingToast"); 
+                    setTimeout(function () { showToast(d); }, 400); } 
+                    catch (e) { localStorage.removeItem("pendingToast"); }
+                }
+            });
+        })();
+    </script>
     <script src="../js/auth.js"></script>
 </body>
 

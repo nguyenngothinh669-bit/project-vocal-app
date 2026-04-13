@@ -1,6 +1,3 @@
-/* ============================================================
-   TOAST NOTIFICATION SYSTEM
-   ============================================================ */
 function createToastContainer() {
     let container = document.getElementById('toast-container');
     if (!container) {
@@ -36,9 +33,6 @@ function showToast({ type = 'info', title, desc, duration = 4000 }) {
     closeBtn.addEventListener('click', () => { clearTimeout(timer); dismiss(); });
 }
 
-/* ============================================================
-   TOGGLE PASSWORD VISIBILITY
-   ============================================================ */
 document.addEventListener('DOMContentLoaded', function () {
     const togglePasswordBtns = document.querySelectorAll('.toggle-password');
     const eyeOpenSvg = `<path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />`;
@@ -61,9 +55,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-/* ============================================================
-   REGISTER FORM
-   ============================================================ */
 const registerForm = document.getElementById('registerForm');
 
 if (registerForm) {
@@ -141,7 +132,7 @@ function showRegisterSuccess(user) {
     `;
     successEl.classList.add('show');
 
-    let count = 3;
+    let count = 4;
     const countdownEl = document.getElementById('countdownNum');
     const timer = setInterval(() => {
         count--;
@@ -150,9 +141,6 @@ function showRegisterSuccess(user) {
     }, 1000);
 }
 
-/* ============================================================
-   LOGIN FORM
-   ============================================================ */
 const loginForm = document.getElementById('loginForm');
 
 if (loginForm) {
@@ -180,10 +168,9 @@ if (loginForm) {
 
         localStorage.setItem('currentUser', JSON.stringify(user));
 
-        // Queue a toast to show after redirect
         localStorage.setItem('pendingToast', JSON.stringify({
             type: 'success',
-            title: `Welcome back, ${user.firstName}! 👋`,
+            title: `Welcome back, ${user.firstName}! `,
             desc: `Logged in as ${user.email}`,
         }));
 
@@ -191,9 +178,7 @@ if (loginForm) {
     });
 }
 
-/* ============================================================
-   SHOW PENDING TOAST ON NEXT PAGE (after login redirect)
-   ============================================================ */
+
 window.addEventListener('DOMContentLoaded', () => {
     const pending = localStorage.getItem('pendingToast');
     if (pending) {
@@ -203,4 +188,4 @@ window.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => showToast(toastData), 400);
         } catch (_) { localStorage.removeItem('pendingToast'); }
     }
-}); 
+});  

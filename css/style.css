@@ -64,10 +64,21 @@ footer {
     box-shadow: var(--shadow-sm);
 }
 
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.brand-logo {
+    width: 25px;
+    height: 25px;
+} 
+
 .navbar h2 {
     font-size: 20px;
     font-weight: 700;
-    color: var(--primary);
+    color: var(--text);
     letter-spacing: -0.5px;
 }
 
@@ -297,34 +308,22 @@ footer {
     opacity: 1;
 }
 
-.card-icon {
-    width: 52px;
-    height: 52px;
-    border-radius: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    background: var(--primary-light);
-    transition: transform 0.3s ease;
+.card-overline {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--primary);
+    margin-bottom: 12px;
 }
 
-.card:hover .card-icon {
-    transform: scale(1.1) rotate(-5deg);
-}
-
-.card:nth-child(2) .card-icon {
-    background: #ecfdf5;
-}
-
-.card:nth-child(3) .card-icon {
-    background: #fff7ed;
-}
 
 .card h3 {
-    font-size: 17px;
-    font-weight: 600;
+    font-size: 18px;
+    font-weight: 700;
     color: var(--text);
+    margin-bottom: 8px;
+    letter-spacing: -0.3px;
 }
 
 .card p {

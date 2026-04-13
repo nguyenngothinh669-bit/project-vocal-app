@@ -247,7 +247,6 @@ function finishQuiz() {
     metaTotal.textContent = total;
     metaCorrect.textContent = correct;
     metaWrong.textContent = wrong;
-    scoreEmoji.textContent = pct === 100 ? "🏆" : pct >= 80 ? "🌟" : pct >= 50 ? "👍" : "📚";
     scoreMsg.textContent = pct === 100 ? "Perfect Score! You're amazing!"
         : pct >= 80 ? "Great job! Keep it up."
             : pct >= 50 ? "Good effort! Keep practicing."
@@ -316,13 +315,12 @@ function renderHistory() {
 
     historyRows.innerHTML = quizHistory.map(r => {
         const cls = r.pct >= 80 ? "high" : r.pct >= 50 ? "mid" : "low";
-        const emoji = r.pct >= 80 ? "🌟" : r.pct >= 50 ? "👍" : "📚";
         return `
         <tr>
             <td>${r.date}</td>
             <td>${r.category}</td>
             <td><strong>${r.score}</strong></td>
-            <td><span class="score-pill ${cls}">${emoji} ${r.pct}%</span></td>
+            <td><span class="score-pill ${cls}">${r.pct}%</span></td>
         </tr>`;
     }).join("");
 }

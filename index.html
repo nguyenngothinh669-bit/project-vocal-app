@@ -14,10 +14,17 @@
 <body>
 
     <nav class="navbar">
-        <h2>VocabApp</h2>
+        <div class="brand">
+            <svg class="brand-logo" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 21L4 12V4C4 4 8 4 12 8C16 4 20 4 20 4V12L12 21Z" fill="var(--primary)" fill-opacity="0.1"
+                    stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M12 21V8" stroke="var(--primary)" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+            </svg>
+            <h2>VocabApp</h2>
+        </div>
 
         <div class="nav-links">
-            <a href="./index.html">Dashboard</a>
             <a href="pages/categories.html">Categories</a>
             <a href="pages/vocabulary.html">Vocabulary</a>
             <a href="pages/flashcard.html">Flashcard</a>
@@ -34,8 +41,8 @@
             <h1>Welcome to <span>VocabApp</span></h1>
             <p>Learn and practice vocabulary with flashcards and quizzes</p>
             <div class="hero-actions">
-                <a href="./pages/quiz.html" class="btn-primary">🚀 Get Started</a>
-                <a href="./pages/register.html" class="btn-outline">📖 Create Account</a>
+                <a href="./pages/quiz.html" class="btn-primary">Get Started</a>
+                <a href="./pages/register.html" class="btn-outline">Create Account</a>
             </div>
         </div>
 
@@ -60,24 +67,24 @@
 
         <div class="dashboard">
             <a href="pages/vocabulary.html" class="card">
-                <div class="card-icon">📚</div>
+                <span class="card-overline">Core System</span>
                 <h3>Vocabulary management</h3>
                 <p>Easily add, edit, and organize vocabulary by topic.</p>
                 <div class="card-arrow">See now →</div>
             </a>
             <a href="pages/flashcard.html" class="card">
-                <div class="card-icon">🧠</div>
+                <span class="card-overline">Spaced Repetition</span>
                 <h3>Practice Flashcards</h3>
                 <p>Review vocabulary using the scientific flashcard method to increase memorization speed.</p>
                 <div class="card-arrow">Practice →</div>
             </a>
             <a href="pages/quiz.html" class="card">
-                <div class="card-icon">📝</div>
+                <span class="card-overline">Assessment</span>
                 <h3>Take Quiz</h3>
                 <p>Test your knowledge with diverse, fun, and score-based quizzes.</p>
                 <div class="card-arrow">Do homework →</div>
             </a>
-                
+
         </div>
 
     </div>
