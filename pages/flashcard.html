@@ -4,13 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Flashcard - VocabApp</title>
-
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="../css/style.css">
-
 </head>
 
 <body>
@@ -25,7 +21,7 @@
             </svg>
             <h2>VocabApp</h2>
         </div>
-        
+
         <div class="nav-links">
             <a href="../index.html">Dashboard</a>
             <a href="categories.html">Categories</a>
@@ -59,16 +55,40 @@
                         <span id="cardWord">No words available</span>
                         <span id="cardMeaning">Meaning</span>
 
+                        <!-- Skeleton loading khi AI đang xử lý -->
+                        <div id="cardImageSkeleton">
+                            <div class="skeleton-shimmer"></div>
+                            <div class="skeleton-label">
+                                <span class="skeleton-ai-icon">✦</span>
+                                AI đang tìm hình ảnh...
+                            </div>
+                        </div>
+
+                        <!-- Ảnh từ AI -->
+                        <div id="cardImage">
+                            <img id="cardImg" src="" alt="" loading="lazy">
+                            <div class="image-overlay-gradient"></div>
+                            <span class="ai-image-badge">✦ AI Image</span>
+                        </div>
+
+                        <!-- Fallback khi không có ảnh -->
+                        <div id="cardImageFallback">
+                            <span class="fallback-icon">🖼️</span>
+                            <span class="fallback-text">Không tìm được hình ảnh</span>
+                        </div>
+
                     </div>
                 </div>
+            </div>
 
+            <!-- Mô tả AI (hiện bên dưới card, ngoài card) -->
+            <div class="card-description-wrap" id="cardDescriptionWrap">
+                <p id="cardDescription"></p>
             </div>
 
             <div class="flashcard-controls">
                 <button class="btn-primary" id="prevBtn">Previous</button>
-                <button class="btn-success" id="learnedBtn">
-                    Mark as Learned
-                </button>
+                <button class="btn-success" id="learnedBtn">Mark as Learned</button>
                 <button class="btn-primary" id="nextBtn">Next</button>
             </div>
 
@@ -77,7 +97,6 @@
                 <div class="progress-bar">
                     <div id="progressFill"></div>
                 </div>
-
                 <span id="progressText">0/0</span>
             </div>
         </div>
@@ -85,7 +104,6 @@
         <h2 class="section-title">Word List</h2>
 
         <table class="table">
-
             <thead>
                 <tr>
                     <th>Word</th>
@@ -93,7 +111,6 @@
                     <th>Status</th>
                 </tr>
             </thead>
-
             <tbody id="wordList"></tbody>
         </table>
     </div>

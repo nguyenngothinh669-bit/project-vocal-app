@@ -73,7 +73,7 @@ footer {
 .brand-logo {
     width: 25px;
     height: 25px;
-} 
+}
 
 .navbar h2 {
     font-size: 20px;
@@ -771,18 +771,195 @@ select:focus {
 }
 
 #cardMeaning {
-    font-size: 26px;
+    font-size: 24px;
     font-weight: 600;
     color: #16a34a;
     letter-spacing: -0.3px;
     position: absolute;
-    top: 50%;
-    transform: translateY(calc(-50% + 16px)) scale(0.95);
+    top: 82%; /* Nằm sát phía dưới cùng của thẻ */
+    left: 50%;
+    transform: translate(-50%, 16px) scale(0.95);
     opacity: 0;
     transition: opacity 0.38s cubic-bezier(0.34, 1.56, 0.64, 1),
-        transform 0.38s cubic-bezier(0.34, 1.56, 0.64, 1);
+                transform 0.38s cubic-bezier(0.34, 1.56, 0.64, 1);
     will-change: transform, opacity;
+    width: 100%;
+    text-align: center;
 }
+
+/* =========================================
+   STYLES CHO AI IMAGE FLASHCARD (Đã được chuẩn hóa)
+========================================= */
+
+/* Đặt các container ảnh cùng một vị trí trung tâm */
+#cardImageSkeleton,
+#cardImage,
+#cardImageFallback {
+    position: absolute;
+    width: 140px;
+    /* Thu nhỏ ảnh lại một chút để nhường chỗ cho chữ */
+    height: 140px;
+    border-radius: 16px;
+    top: 50%;
+    /* Nằm chính giữa thẻ theo chiều dọc */
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.95);
+    /* Scale nhỏ lại khi đang ẩn */
+    opacity: 0;
+    pointer-events: none;
+    overflow: hidden;
+    transition: opacity 0.38s ease, transform 0.38s ease;
+    z-index: 5;
+}
+
+/* 1. SKELETON LOADING */
+#cardImageSkeleton {
+    background: #f1f5f9;
+    border: 2px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.skeleton-shimmer {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+    animation: shimmer 1.5s infinite;
+}
+
+.skeleton-label {
+    font-size: 11px;
+    color: #64748b;
+    font-weight: 600;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.skeleton-ai-icon {
+    font-size: 18px;
+    color: var(--primary);
+    animation: spin 2s linear infinite;
+    display: inline-block;
+}
+
+/* 2. MAIN IMAGE */
+#cardImage {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    border: 2px solid #e0e7ff;
+}
+
+#cardImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.image-overlay-gradient {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(to top, rgba(15, 23, 42, 0.7), transparent);
+}
+
+.ai-image-badge {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(4px);
+    color: white;
+    font-size: 10px;
+    padding: 3px 10px;
+    border-radius: 99px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* 3. FALLBACK (LỖI) */
+#cardImageFallback {
+    background: #fef2f2;
+    border: 2px dashed #fca5a5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.fallback-icon {
+    font-size: 32px;
+    opacity: 0.5;
+}
+
+.fallback-text {
+    font-size: 12px;
+    color: #ef4444;
+    font-weight: 600;
+    text-align: center;
+    padding: 0 10px;
+}
+
+/* 4. DESCRIPTION BÊN DƯỚI CARD */
+.card-description-wrap {
+    margin-top: 20px;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.4s ease;
+    height: 0;
+    overflow: hidden;
+}
+
+.card-description-wrap.show {
+    opacity: 1;
+    transform: translateY(0);
+    height: auto;
+    margin-bottom: 20px;
+}
+
+#cardDescription {
+    font-size: 13px;
+    color: var(--text-secondary);
+    background: white;
+    padding: 10px 20px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    display: inline-block;
+    max-width: 80%;
+    box-shadow: var(--shadow-sm);
+    font-style: italic;
+}
+
+/* Animations Core */
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* ========================================= */
 
 .flashcard-back {
     display: none;

@@ -65,7 +65,7 @@ function renderVocabulary() {
 
     if (category) {
         filtered = filtered.filter(v => v.categoryId === category);
-    }
+    }  
 
     table.innerHTML = filtered.map(v => {
         const cat = categories.find(c => c.id === v.categoryId);
