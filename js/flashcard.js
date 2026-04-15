@@ -36,31 +36,24 @@ const cardImageFallback = document.getElementById("cardImageFallback");
 const cardDescriptionWrap = document.getElementById("cardDescriptionWrap");
 const cardDescription = document.getElementById("cardDescription");
 
-// ==========================================
-// API GỌI BACKEND TẠO ẢNH AI
-// ==========================================
 async function fetchAIDataForWord(keyword) {
     try {
-        // Gọi lên server Node.js đang chạy ở localhost:3000
         const response = await fetch(`http://localhost:3000/api/images/${keyword}`);
-        
+
         if (!response.ok) throw new Error("Lỗi kết nối Server Backend");
-        
+
         const data = await response.json();
-        
+
         return {
             imageUrl: data.imageUrl,
             description: `💡 AI Suggestion: Hình ảnh minh họa cho "${keyword}"`
         };
     } catch (error) {
         console.error("Lỗi khi lấy ảnh AI:", error);
-        throw error; // Quăng lỗi để bật Fallback UI
+        throw error;
     }
 }
 
-// ==========================================
-// CÁC HÀM XỬ LÝ LOGIC FLASHCARD & UI
-// ==========================================
 function speakWord(word) {
     if (!("speechSynthesis" in window)) return;
     speechSynthesis.cancel();
@@ -94,71 +87,63 @@ function getFilteredWords() {
     return list;
 }
 
-// 1. TRẠNG THÁI ÚP THẺ (Chỉ hiện Từ Tiếng Anh ở giữa)
+
 function hideMeaning() {
     isRevealed = false;
 
-    // Đưa từ vựng về chính giữa
     cardWord.style.transition = "none";
     cardWord.style.opacity = "1";
     cardWord.style.transform = "translateY(-50%) scale(1)";
     cardWord.style.filter = "blur(0px)";
 
-    // Kéo nghĩa giấu xuống dưới
     cardMeaning.style.transition = "none";
     cardMeaning.style.opacity = "0";
     cardMeaning.style.transform = "translate(-50%, 16px) scale(0.95)";
 
-    // Ẩn sạch các trạng thái của Hình Ảnh
     if (cardImageSkeleton) {
         cardImageSkeleton.style.opacity = "0";
         cardImageSkeleton.style.transform = "translate(-50%, -50%) scale(0.95)";
-        
+
         cardImage.style.opacity = "0";
         cardImage.style.transform = "translate(-50%, -50%) scale(0.95)";
-        if(cardImg) cardImg.src = ""; 
-        
+        if (cardImg) cardImg.src = "";
+
         cardImageFallback.style.opacity = "0";
         cardImageFallback.style.transform = "translate(-50%, -50%) scale(0.95)";
     }
 
-    if(cardDescriptionWrap) cardDescriptionWrap.classList.remove("show");
-    if(flashcardFront) flashcardFront.classList.remove("revealed");
+    if (cardDescriptionWrap) cardDescriptionWrap.classList.remove("show");
+    if (flashcardFront) flashcardFront.classList.remove("revealed");
 
-    // Ẩn nút chức năng
-    if(learnedBtn) {
+
+    if (learnedBtn) {
         learnedBtn.style.opacity = "0";
         learnedBtn.style.pointerEvents = "none";
         learnedBtn.style.transform = "translateY(8px) scale(0.95)";
     }
 }
 
-// 2. TRẠNG THÁI LẬT THẺ (Từ đẩy lên trên, Ảnh giữa, Nghĩa đẩy xuống dưới)
 async function revealMeaning() {
     if (isAnimating || isRevealed) return;
     isRevealed = true;
     isAnimating = true;
 
-    // A. Đẩy Từ Vựng lên trên cùng để nhường chỗ
     cardWord.style.transition = "all 0.3s cubic-bezier(0.4,0,0.2,1)";
-    cardWord.style.opacity = "0.8"; // Tăng độ mờ nhẹ
-    cardWord.style.transform = "translateY(-110px) scale(0.85)"; 
+    cardWord.style.opacity = "0.8";
+    cardWord.style.transform = "translateY(-110px) scale(0.85)";
     cardWord.style.filter = "blur(0px)";
 
-    if(flashcardFront) flashcardFront.classList.add("revealed");
+    if (flashcardFront) flashcardFront.classList.add("revealed");
 
     const words = getFilteredWords();
     if (words.length === 0) return;
     const currentWord = words[currentIndex].word;
 
-    // B. Hiện khung Loading (Skeleton) và Nghĩa tiếng Việt
     setTimeout(() => {
-        // Hiện nghĩa tiếng việt (Dưới cùng)
         cardMeaning.style.transition = "all 0.38s cubic-bezier(0.34, 1.56, 0.64, 1)";
         cardMeaning.style.opacity = "1";
         cardMeaning.style.transform = "translate(-50%, -50%) scale(1)";
 
-        // Hiện Skeleton AI (Chính giữa)
         if (cardImageSkeleton) {
             cardImageSkeleton.style.transition = "all 0.3s ease";
             cardImageSkeleton.style.opacity = "1";
@@ -166,7 +151,7 @@ async function revealMeaning() {
         }
 
         setTimeout(() => {
-            if(learnedBtn) {
+            if (learnedBtn) {
                 learnedBtn.style.transition = "all 0.32s cubic-bezier(0.34, 1.56, 0.64, 1)";
                 learnedBtn.style.opacity = "1";
                 learnedBtn.style.pointerEvents = "auto";
@@ -176,24 +161,22 @@ async function revealMeaning() {
         }, 100);
     }, 180);
 
-    // C. Gọi API lấy Ảnh AI
     try {
         const aiData = await fetchAIDataForWord(currentWord);
-        
-        if(cardImg) {
+
+        if (cardImg) {
             cardImg.src = aiData.imageUrl;
-            
-            // Đợi ảnh tải xong mới thay Skeleton bằng Ảnh thật
+
             cardImg.onload = () => {
                 if (cardImageSkeleton) cardImageSkeleton.style.opacity = "0";
-                
+
                 if (cardImage) {
                     cardImage.style.transition = "all 0.4s ease";
                     cardImage.style.opacity = "1";
                     cardImage.style.transform = "translate(-50%, -50%) scale(1)";
                 }
-                
-                if(aiData.description && cardDescription && cardDescriptionWrap) {
+
+                if (aiData.description && cardDescription && cardDescriptionWrap) {
                     cardDescription.textContent = aiData.description;
                     cardDescriptionWrap.classList.add("show");
                 }
@@ -202,7 +185,6 @@ async function revealMeaning() {
             cardImg.onerror = () => { throw new Error("Lỗi link hình ảnh"); };
         }
     } catch (error) {
-        // D. Lỗi mạng hoặc Backend -> Bật khung Fallback (Lỗi)
         if (cardImageSkeleton) cardImageSkeleton.style.opacity = "0";
         if (cardImageFallback) {
             cardImageFallback.style.transition = "all 0.4s ease";
@@ -212,22 +194,19 @@ async function revealMeaning() {
     }
 }
 
-// 3. TRẠNG THÁI ÚP LẠI (Tắt lật)
 function showWord() {
     if (isAnimating || !isRevealed) return;
     isRevealed = false;
     isAnimating = true;
 
-    // Thu hồi Nghĩa
     cardMeaning.style.transition = "all 0.22s cubic-bezier(0.4,0,0.2,1)";
     cardMeaning.style.opacity = "0";
     cardMeaning.style.transform = "translate(-50%, 16px) scale(0.95)";
 
-    // Thu hồi Ảnh/Skeleton
     if (cardImageSkeleton) { cardImageSkeleton.style.opacity = "0"; cardImageSkeleton.style.transform = "translate(-50%, -50%) scale(0.95)"; }
     if (cardImage) { cardImage.style.opacity = "0"; cardImage.style.transform = "translate(-50%, -50%) scale(0.95)"; }
     if (cardImageFallback) { cardImageFallback.style.opacity = "0"; cardImageFallback.style.transform = "translate(-50%, -50%) scale(0.95)"; }
-    
+
     if (cardDescriptionWrap) cardDescriptionWrap.classList.remove("show");
 
     if (learnedBtn) {
@@ -238,8 +217,7 @@ function showWord() {
     }
 
     if (flashcardFront) flashcardFront.classList.remove("revealed");
-    
-    // Đưa Từ vựng về giữa lại
+
     setTimeout(() => {
         cardWord.style.transition = "all 0.3s cubic-bezier(0.34,1.56,0.64,1)";
         cardWord.style.opacity = "1";
@@ -249,9 +227,6 @@ function showWord() {
     }, 150);
 }
 
-// ==========================================
-// CÁC HÀM RENDER & LOGIC CHUYỂN TRANG
-// ==========================================
 function loadWord(word, slideDir) {
     if (isAnimating) return;
     isAnimating = true;
@@ -264,7 +239,7 @@ function loadWord(word, slideDir) {
     setTimeout(() => {
         cardWord.textContent = word.word;
         cardMeaning.textContent = word.meaning;
-        hideMeaning(); // Reset trạng thái lật thẻ mỗi khi sang từ mới
+        hideMeaning();
         syncLearnedBtn();
 
         flashcardFront.classList.remove(exitClass);
@@ -352,9 +327,6 @@ window.jumpTo = function (index) {
     setTimeout(renderList, 320);
 };
 
-// ==========================================
-// EVENT LISTENERS (CLICK, SWIPE, PHÍM)
-// ==========================================
 flashcard.addEventListener("click", () => {
     const words = getFilteredWords();
     if (words.length === 0) return;
@@ -401,7 +373,9 @@ learnedBtn.addEventListener("click", (e) => {
         triggerConfetti(learnedBtn);
     }
 
-    syncLearnedBtn(); updateProgress(words); renderList();
+    syncLearnedBtn();
+    updateProgress(words);
+    renderList();
 
     if (!learned && currentIndex < words.length - 1) {
         setTimeout(() => {
@@ -417,7 +391,6 @@ voiceBtn.addEventListener("click", (e) => {
     speakWord(words[currentIndex].word);
 });
 
-// Vuốt trên Mobile
 flashcard.addEventListener("touchstart", (e) => {
     touchStartX = e.touches[0].clientX;
     touchStartY = e.touches[0].clientY;
@@ -444,12 +417,10 @@ function triggerConfetti(el) {
     }
 }
 
-// Bắt sự kiện lọc và tìm kiếm
 searchWord.addEventListener("input", () => { currentIndex = 0; renderCard("next"); renderList(); });
 categoryFilter.addEventListener("change", () => { currentIndex = 0; renderCard("next"); renderList(); });
 sortSelect.addEventListener("change", () => { currentIndex = 0; renderCard("next"); renderList(); });
 
-// Phím tắt bàn phím
 document.addEventListener("keydown", (e) => {
     if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA" || e.target.tagName === "SELECT") return;
     if (e.code === "Space") { e.preventDefault(); flashcard.click(); }
@@ -459,9 +430,6 @@ document.addEventListener("keydown", (e) => {
     if (e.code === "KeyV") voiceBtn.click();
 });
 
-// ==========================================
-// KHỞI ĐỘNG (INIT)
-// ==========================================
 hideMeaning();
 renderCard("next");
 renderList();
